@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import axios from 'axios'
+import './form.css'
 
 class Form extends Component{
     constructor(){
@@ -31,20 +33,30 @@ class Form extends Component{
             image: ''
         })
     }
+    editProduct=(id, body)=>{
+        axios.put(`/api/inventory/${id}`, {body})
+        .then(res => {
+          this.setState({
+            inventory: res.data
+          })
+        })
+      }
     render(){
         console.log(this.state)
         let {name, price, image} = this.state
         return(
-            <div>
-                <div>This is the Form</div>
+            <div className='form'>
+               <img src='https://cdn.shortpixel.ai/client/q_lossless,ret_img,w_370,h_190/https://www.eventifyuk.com/wp-content/themes/consultix/images/no-image-found-360x250.png' alt='noimage' className='the-image' />
                 <p>Image URL:</p>
-                <input placeholder='Image' onChange={e => this.handleImg(e.target.value)}></input>
+                <input placeholder='Image' value={this.state.image} onChange={e => this.handleImg(e.target.value)}></input>
                 <p>Product Name</p>
-                <input placeholder='Name' onChange={e => this.handleName(e.target.value)}></input>
+                <input placeholder='Name' value={this.state.name} onChange={e => this.handleName(e.target.value)}></input>
                 <p>Price: </p>
-                <input placeholder='price' onChange={e => this.handlePrice(e.target.value)}></input>
-                <button onClick={this.handleClick}>Cancel</button>
-                <button onClick={() => this.props.createProduct({name, price, image})}>Add</button>
+                <input placeholder='price' value={this.state.price} onChange={e => this.handlePrice(e.target.value)}></input>
+                <div className='buttons'>
+                <button className='form-button' onClick={this.handleClick}>Cancel</button>
+                <button className='form-button' onClick={() => this.props.createProduct({name, price, image})}>Add to Inventory</button>
+                </div>
             </div>
         )
     }

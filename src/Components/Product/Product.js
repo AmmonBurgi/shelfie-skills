@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './product.css'
 
 class Product extends Component{
     constructor(){
@@ -10,9 +11,15 @@ class Product extends Component{
     render(){
         return(
             <div className='product'>
-                <img src={this.props.inventory.img} alt='product'/>
-                <div>{this.props.inventory.name}</div>
-                <div>{this.props.inventory.price}</div>
+                <img src={this.props.inventory.image} alt='product'/>
+                <div className='align'>
+                    <div>{this.props.inventory.name}</div>
+                    <div>{this.props.inventory.price}</div>
+                    <div className='the-buttons'>
+                        <button className='pro-buttons'>Edit</button>
+                        <button className='pro-buttons' onClick={() => this.props.deleteProduct(this.props.inventory.id)}>Delete</button>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -15,7 +15,7 @@ class App extends Component{
   componentDidMount=()=>{
     axios.get('/api/inventory')
     .then(res =>{
-      console.log(res.data)
+      // console.log(res.data)
       this.setState({
         inventory: res.data
       })
@@ -31,15 +31,23 @@ class App extends Component{
       })
     })
   }
-  deleteProduct=()=>{
+  deleteProduct=(id)=>{
     axios.delete(`/api/inventory/${id}`)
+    .then(res =>{
+      this.setState({
+        inventory: res.data
+      })
+    })
   }
   render(){
   return (
     <div className="App">
       <Header />
       <div className='align'>
-      <Dashboard inventory={this.state.inventory} />
+      <Dashboard inventory={this.state.inventory}
+                  mount={this.componentDidMount} 
+                  deleteProduct={this.deleteProduct} 
+                  />
       <Form createProduct={this.createProduct} />
       </div>
     </div>

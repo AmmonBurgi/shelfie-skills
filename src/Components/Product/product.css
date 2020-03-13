@@ -1,5 +1,31 @@
 .product{
-    width: 400px;
-    height: auto;
-    background-color: aqua;
+    margin-top: 20px;
+    margin-right: 50px;
+    width: 550px;
+    height: 250px;
+    background-color: #D34735;
+    border-radius: 6px;
+    display: flex;
+    position: relative;
+    left: -300px;
+}
+img{
+    margin: 10px;
+    width: 280px;
+}
+.align{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.the-buttons{
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+.pro-buttons{
+    margin: 20px;
+    font-size: 30px;
+    background-color:  #3AD886;
+    border-radius: 5px;
 }
