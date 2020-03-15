@@ -9,7 +9,8 @@ class App extends Component{
   constructor(){
     super()
     this.state={
-      inventory: []
+      inventory: [],
+      selectedPro: []
     }
   }
 componentDidMount = () =>{
@@ -18,19 +19,26 @@ componentDidMount = () =>{
     inventory: res.data
   })).catch(err => console.log(err))
 }
-
+handleEditButton=(product)=>{
+  this.setState({
+    selectedPro: product
+  })
+}
   render(){
-    console.log(this.state.inventory)
+    console.log('inventory:', this.state.inventory)
+    console.log('selected product:', this.state.selectedPro)
     return(
       <div>
         <Header />
         <Dashboard 
         inventory={this.state.inventory}
         didMount={this.componentDidMount}
+        handleEditButton={this.handleEditButton}
         />
         <Form 
         didMount={this.componentDidMount}
         inventory={this.state.inventory}
+        selectedPro={this.state.selectedPro}
         />
       </div>
     )

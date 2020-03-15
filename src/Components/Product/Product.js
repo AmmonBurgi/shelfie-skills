@@ -15,7 +15,7 @@ class Product extends Component{
                 <span>{this.props.inventory.name}</span>
                 <span>{this.props.inventory.price}</span>
                 <button onClick={() => this.props.deleteProduct(this.props.inventory.id)}>Delete</button>
-                <button>Edit</button>
+                <button onClick={() => this.props.handleEditButton(this.props.inventory)}>Edit</button>
             </div>
         )
     }

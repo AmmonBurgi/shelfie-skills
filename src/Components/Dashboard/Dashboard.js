@@ -24,6 +24,7 @@ class Dashboard extends Component{
             inventory={element}
             key={index}
             deleteProduct={this.deleteProduct}
+            handleEditButton={this.props.handleEditButton}
             />
         })
         return(
