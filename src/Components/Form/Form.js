@@ -29,7 +29,8 @@ class Form extends Component{
         this.setState({
             image: '',
             name: '',
-            price: 0
+            price: 0,
+            id: null
         })
     }
     addProduct = (image, name, price) =>{
