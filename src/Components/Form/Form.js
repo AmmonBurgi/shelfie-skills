@@ -1,63 +1,55 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
-import './form.css'
-
 class Form extends Component{
     constructor(){
         super()
         this.state={
+            image: '',
             name: '',
-            price: 0,
-            image: ''
+            price: 0
         }
     }
-    handleName=(val)=>{
-        this.setState({
-            name: val
-        })
-    }
-    handlePrice=(val)=>{
-        this.setState({
-            price: val
-        })
-    }
-    handleImg=(val) =>{
+    handleImage = (val) =>{
         this.setState({
             image: val
         })
     }
-    handleClick=()=>{
+    handleName = (val) =>{
         this.setState({
-            name: '',
-            price: 0,
-            image: ''
+            name: val
         })
     }
-    editProduct=(id, body)=>{
-        axios.put(`/api/inventory/${id}`, {body})
-        .then(res => {
-          this.setState({
-            inventory: res.data
-          })
+    handlePrice = (val) =>{
+        this.setState({
+            price: val
         })
-      }
+    }
+    handleCancel = () =>{
+        this.setState({
+            image: '',
+            name: '',
+            price: 0
+        })
+    }
+    addProduct = (image, name, price) =>{
+        axios.post('/api/inventory', {image, name, price})
+        .then(res => {
+            this.setState({
+                inventory: res.data
+            })
+            this.props.didMount()
+            this.handleCancel()
+        }).catch(err => console.log(err))
+    }
     render(){
-        console.log(this.state)
-        let {name, price, image} = this.state
         return(
-            <div className='form'>
-               <img src='https://cdn.shortpixel.ai/client/q_lossless,ret_img,w_370,h_190/https://www.eventifyuk.com/wp-content/themes/consultix/images/no-image-found-360x250.png' alt='noimage' className='the-image' />
-                <p>Image URL:</p>
-                <input placeholder='Image' value={this.state.image} onChange={e => this.handleImg(e.target.value)}></input>
-                <p>Product Name</p>
-                <input placeholder='Name' value={this.state.name} onChange={e => this.handleName(e.target.value)}></input>
-                <p>Price: </p>
-                <input placeholder='price' value={this.state.price} onChange={e => this.handlePrice(e.target.value)}></input>
-                <div className='buttons'>
-                <button className='form-button' onClick={this.handleClick}>Cancel</button>
-                <button className='form-button' onClick={() => this.props.createProduct({name, price, image})}>Add to Inventory</button>
-                </div>
-            </div>
+            <div className='Form'> 
+                <input onChange={e => this.handleImage(e.target.value)} value={this.state.image}></input>
+                <input onChange={e => this.handleName(e.target.value)} value={this.state.name}></input>
+                <input onChange={e => this.handlePrice(e.target.value)} value={this.state.price}></input>
+                <button onClick={this.handleCancel}>Clear</button>
+                <button onClick={() => this.addProduct(this.state.image, this.state.name, this.state.price)}>Add</button>
+            </div> 
         )
     }
 }

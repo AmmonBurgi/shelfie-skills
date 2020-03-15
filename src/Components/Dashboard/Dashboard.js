@@ -9,21 +9,26 @@ class Dashboard extends Component{
 
         }
     }
-    componentDidMount(){
-        this.props.mount()
+    deleteProduct = (id) =>{
+        axios.delete(`/api/inventory/${id}`)
+        .then(res => {
+            this.setState({
+                inventory: res.data
+            })
+            this.props.didMount()
+        })
     }
-    render(){
-        let invMap = this.props.inventory.map((element, index) =>{
-            return <Product 
-                    inventory={element}
-                    key={index}
-                    deleteProduct={this.props.deleteProduct}
-                    mount={this.props.mount}
+        render(){
+        let proMap = this.props.inventory.map((element, index) =>{
+            return <Product
+            inventory={element}
+            key={index}
+            deleteProduct={this.deleteProduct}
             />
         })
         return(
-            <div className='dash'>
-                {invMap}
+            <div>
+                {proMap}
             </div>
         )
     }

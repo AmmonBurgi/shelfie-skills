@@ -12,46 +12,28 @@ class App extends Component{
       inventory: []
     }
   }
-  componentDidMount=()=>{
-    axios.get('/api/inventory')
-    .then(res =>{
-      // console.log(res.data)
-      this.setState({
-        inventory: res.data
-      })
-    }).catch(err =>{
-      console.log(err)
-    })
-  }
-  createProduct=({name, price, image})=>{
-    axios.post('/api/inventory', {name, price, image})
-    .then(res =>{
-      this.setState({
-       inventory: res.data
-      })
-    })
-  }
-  deleteProduct=(id)=>{
-    axios.delete(`/api/inventory/${id}`)
-    .then(res =>{
-      this.setState({
-        inventory: res.data
-      })
-    })
-  }
+componentDidMount = () =>{
+  axios.get('/api/inventory')
+  .then(res => this.setState({
+    inventory: res.data
+  })).catch(err => console.log(err))
+}
+
   render(){
-  return (
-    <div className="App">
-      <Header />
-      <div className='align'>
-      <Dashboard inventory={this.state.inventory}
-                  mount={this.componentDidMount} 
-                  deleteProduct={this.deleteProduct} 
-                  />
-      <Form createProduct={this.createProduct} />
+    console.log(this.state.inventory)
+    return(
+      <div>
+        <Header />
+        <Dashboard 
+        inventory={this.state.inventory}
+        didMount={this.componentDidMount}
+        />
+        <Form 
+        didMount={this.componentDidMount}
+        inventory={this.state.inventory}
+        />
       </div>
-    </div>
-  );
+    )
+  }
 }
-}
-export default App;
+export default App

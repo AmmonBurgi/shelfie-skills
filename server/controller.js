@@ -9,9 +9,9 @@ module.exports={
     },
     createPro: (req, res) =>{
         const db = req.app.get('db')
-        console.log(req.body)
+        // console.log(req.body)
         const {name, price, image} = req.body
-        console.log([name, price, image])
+        // console.log([name, price, image])
         db.create_product([name, price, image])
         .then(inv =>{
             res.status(200).send(inv)
