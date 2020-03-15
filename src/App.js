@@ -28,18 +28,20 @@ handleEditButton=(product)=>{
     console.log('inventory:', this.state.inventory)
     console.log('selected product:', this.state.selectedPro)
     return(
-      <div>
+      <div className='App'>
         <Header />
-        <Dashboard 
-        inventory={this.state.inventory}
-        didMount={this.componentDidMount}
-        handleEditButton={this.handleEditButton}
-        />
-        <Form 
-        didMount={this.componentDidMount}
-        inventory={this.state.inventory}
-        selectedPro={this.state.selectedPro}
-        />
+        <div className='align-components'>
+          <Dashboard 
+          inventory={this.state.inventory}
+          didMount={this.componentDidMount}
+          handleEditButton={this.handleEditButton}
+          />
+          <Form 
+          didMount={this.componentDidMount}
+          inventory={this.state.inventory}
+          selectedPro={this.state.selectedPro}
+          />
+        </div>
       </div>
     )
   }
