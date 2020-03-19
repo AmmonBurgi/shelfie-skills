@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 import './form.css'
 class Form extends Component{
     constructor(){
@@ -10,6 +11,20 @@ class Form extends Component{
             price: 0,
             id: null
         }
+    }
+    componentDidMount(){
+        let id = this.props.match.params.id
+        console.log(id)
+        axios.get(`/api/inventory/${id}`)
+        .then(res => {
+            console.log('data', res.data)
+            let {image, name, price, id} = res.data[0]
+            this.setState({
+                image: image,
+                name: name,
+                price: price,
+                id: id
+            })}).catch(err => console.log(err))
     }
     handleImage = (val) =>{
         this.setState({
@@ -44,16 +59,16 @@ class Form extends Component{
             this.handleCancel()
         }).catch(err => console.log(err))
     }
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.selectedPro !== this.props.selectedPro){
-            this.setState({
-                image: this.props.selectedPro.image,
-                name: this.props.selectedPro.name,
-                price: this.props.selectedPro.price,
-                id: this.props.selectedPro.id
-            })
-        }
-    }
+    // componentDidUpdate(prevProps, prevState){
+    //     if(prevProps.selectedPro !== this.props.selectedPro){
+    //         this.setState({
+    //             image: this.props.selectedPro.image,
+    //             name: this.props.selectedPro.name,
+    //             price: this.props.selectedPro.price,
+    //             id: this.props.selectedPro.id
+    //         })
+    //     }
+    // }
     editProduct(id, body){
         console.log('body', body)
         axios.put(`api/inventory/${id}`, {body})
@@ -66,6 +81,8 @@ class Form extends Component{
         }).catch(err => console.log(err))
     }
     render(){
+        console.log('form state', this.state)
+        console.log(this.props.match.params.id)
         // console.log('current props:', this.props.data)
     let body = {image: this.state.image, name: this.state.name, price: this.state.price}
         return(
@@ -82,12 +99,18 @@ class Form extends Component{
                     <input className='price-input' placeholder='Price' onChange={e => this.handlePrice(e.target.value)} value={this.state.price}></input>
                 </div>   
                 <div className='align-buttons'>
-                    <button className='clear' onClick={this.handleCancel}>Clear</button>
-                    {this.state.id === null ? (
-                    <button className='add' onClick={() => this.addProduct(this.state.image, this.state.name, this.state.price)}>Add To Inventory</button>
-                    ):(
-                    <button className='confirm-changes' onClick={() => this.editProduct(this.state.id, body)}>Make Changes</button>
-                    )}
+                    <Link to='/'>
+                        <button className='clear' onClick={this.handleCancel}>Clear</button>
+                    </Link>
+                        {this.state.id === null ? (
+                        <Link to='/'>
+                            <button className='add' onClick={() => this.addProduct(this.state.image, this.state.name, this.state.price)}>Add To Inventory</button>
+                        </Link>
+                        ):(
+                        <Link to='/'>
+                            <button className='confirm-changes' onClick={() => this.editProduct(this.state.id, body)}>Make Changes</button>
+                        </Link>
+                        )}
                 </div>
             </div> 
         )

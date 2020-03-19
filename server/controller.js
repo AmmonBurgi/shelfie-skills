@@ -35,5 +35,14 @@ module.exports={
         .then(inv =>{
             res.status(200).send(inv)
         }).catch(err => res.status(500).send(err))
+    },
+    getOne: (req, res) =>{
+        const db = req.app.get('db')
+        const {id} = req.params
+        console.log(req.params)
+        db.get_one(id)
+        .then(inv =>{
+            res.status(200).send(inv)
+        }).catch(err => res.status(500).send(err))
     }
 }

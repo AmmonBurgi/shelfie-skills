@@ -16,3 +16,9 @@ header {
     font-size: 40px;
     font-weight: bolder;
 }
+.nav{
+    margin: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #ED6B5A;
+}
