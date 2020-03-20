@@ -59,16 +59,7 @@ class Form extends Component{
             this.handleCancel()
         }).catch(err => console.log(err))
     }
-    // componentDidUpdate(prevProps, prevState){
-    //     if(prevProps.selectedPro !== this.props.selectedPro){
-    //         this.setState({
-    //             image: this.props.selectedPro.image,
-    //             name: this.props.selectedPro.name,
-    //             price: this.props.selectedPro.price,
-    //             id: this.props.selectedPro.id
-    //         })
-    //     }
-    // }
+   
     editProduct(id, body){
         console.log('body', body)
         axios.put(`api/inventory/${id}`, {body})

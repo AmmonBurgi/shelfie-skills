@@ -24,6 +24,11 @@ class Dashboard extends Component{
           inventory: res.data
         })).catch(err => console.log(err))
       }
+      componentDidUpdate(prevProps, prevState){
+        if(prevState !== this.state){
+            this.componentDidMount()
+        }
+    }
         render(){
         let proMap = this.state.inventory.map((element, index) =>{
             return <Product
